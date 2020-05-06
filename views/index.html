@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Calorie Calculator</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" href="../assets/bootstrap.min.css">
+	<link href="css/login.css" rel="stylesheet">
+	<script type="text/javascript" src="../node_modules/androidjs/lib/androidjs.js"></script>
+</head>
+
+<style>
+	.app {
+		font-size: 30px;
+	}
+
+	.bd-placeholder-img {
+		font-size: 1.125rem;
+		text-anchor: middle;
+	}
+
+	@media (min-width: 768px) {
+		.bd-placeholder-img-lg {
+			font-size: 3.5rem;
+		}
+	}
+
+	.modal {
+		display: none;
+		/* Hidden by default: none*/
+		position: fixed;
+		/* Stay in place */
+		z-index: 1;
+		/* Sit on top */
+		/* padding-top: 15%; */
+		/* Location of the box */
+		left: 0;
+		top: 0;
+		width: 100%;
+		max-width: none;
+		/* Full width */
+		height: 100%;
+		/* Full height */
+		overflow: auto;
+		/* Enable scroll if needed */
+		background-color: rgb(0, 0, 0);
+		/* Fallback color */
+		background-color: rgba(0, 0, 0, 0.4);
+		/* Black w/ opacity */
+		margin: 0;
+		padding: 0;
+	}
+
+	.modal:hover {
+		cursor: auto;
+	}
+
+	/* Modal Content */
+	.modal-content {
+		background-color: #fefefe;
+		margin: auto;
+		/* padding: 20px; */
+		border: 1px solid #888;
+		height: auto;
+		min-height: 100%;
+		border-radius: 0;
+		width: 100%;
+	}
+
+	.modal2 {
+		display: none;
+		/* Hidden by default: none*/
+		position: fixed;
+		/* Stay in place */
+		z-index: 1;
+		/* Sit on top */
+		/* padding-top: 15%; */
+		/* Location of the box */
+		left: 0;
+		top: 0;
+		width: 100%;
+		max-width: none;
+		/* Full width */
+		height: 100%;
+		/* Full height */
+		overflow: auto;
+		/* Enable scroll if needed */
+		background-color: rgb(0, 0, 0);
+		/* Fallback color */
+		background-color: rgba(0, 0, 0, 0.4);
+		/* Black w/ opacity */
+		margin: 0;
+		padding: 0;
+	}
+
+	.modal:hover {
+		cursor: auto;
+	}
+
+	/* Modal Content */
+	.modal-content2 {
+		background-color: #fefefe;
+		margin: auto;
+		/* padding: 20px; */
+		border: 1px solid #888;
+		height: auto;
+		min-height: 100%;
+		border-radius: 0;
+		width: 100%;
+	}
+</style>
+
+<body>
+
+	<div class="form-signin">
+		<strong class="title">Kalkulator Kalori</strong><br>
+		<a class="subtitle">Login</a> <br> <br>
+		<label for="username" class="sr-only">Username </label>
+		<input type="text" id="username" name="username" class="form-control" placeholder="Username" required>
+		<label for="password" class="sr-only">Password</label>
+		<input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+		<button class="btn btn-lg btn-primary btn-block" type="button" onclick="login()">Log in</button> <br>
+	</div>
+	<div id="profileModal" class="modal">
+		<div class="form-modal">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h3 style="color:black">Profil</h3>
+					<span class="close">&times;</span>
+				</div>
+				<div class="modal-body">
+					<h5 style="color:black"> Jenis Kelamin </h5>
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="Pria">
+						<label class="form-check-label" for="inlineRadio1">Pria</label>
+					</div>
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="Wanita">
+						<label class="form-check-label" for="inlineRadio2">Wanita</label>
+					</div>
+					<h5 style="color:black; margin-top: 10px"> Tinggi Badan (cm)</h5>
+					<input type="text" id="tinggibadan" name="tinggibadan" class="form-control"
+						placeholder="Tinggi Badan" required>
+					<h5 style="color:black; margin-top: 10px"> Berat Badan (kg)</h5>
+					<input type="text" id="beratbadan" name="beratbadan" class="form-control" placeholder="Berat Badan"
+						required>
+					<h5 style="color:black; margin-top: 10px"> Umur (tahun)</h5>
+					<input type="text" id="umur" name="umur" class="form-control" placeholder="Umur" required>
+					<h5 style="color:black; margin-top: 10px"> Level Aktivitas Fisik</h5>
+					<select class="custom-select">
+						<option selected>Pilih</option>
+						<option value="1.2">Sangat Jarang</option>
+						<option value="1.375">Jarang</option>
+						<option value="1.55">Cukup</option>
+						<option value="1.725">Sering</option>
+						<option value="1.9">Sangat Sering</option>
+					</select>
+				</div>
+				<div class="modal-footer">
+					<div style="text-align:center;">
+						<button id="modalBtn" type="button" class="btn btn-primary" style="float: right;"
+							onclick="sendprofile()"> Simpan Profil
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="calculatorModal" class="modal2">
+		<div class="form-modal">
+			<div class="modal-content2">
+				<div class="modal-header">
+					<h3 style="color:black">Hitung Kalori</h3>
+				</div>
+				<div class="modal-body">
+					<h5 style="color:black"> Kebutuhan kalori per hari </h5>
+					<input type="text" id="optimalCalorie" name="optimalCalorie" class="form-control-plaintext"
+						readonly>
+					<h5 style="color:black; margin-top: 10px"> Asupan kalori hari ini</h5>
+					<input type="text" id="todayCalorie" name="todayCalorie" class="form-control-plaintext" readonly>
+					<h5 style="color:black; margin-top: 10px"> Status</h5>
+					<input type="text" id="statusCalorie" name="statusCalorie" class="form-control-plaintext" readonly>
+					<br>
+					<h5 style="color:black; margin-top: 10px"> Tambah asupan kalori</h5>
+					<input type="text" id="tambahkalori" name="tambahkalori" class="form-control"
+						placeholder="Masukkan jumlah kalori" required>
+					<br>
+					<div style="text-align:center;">
+						<button id="modalBtn" type="button" class="btn btn-primary" style="float: left;"
+							onclick="tambahkalori()"> Tambah
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="../assets/script.js"></script>
+	<script src="../assets/jquery-3.3.1.slim.min.js"></script>
+	<script src="../assets/popper.min.js"></script>
+	<script src="../assets/bootstrap.min.js"></script>
+	<style type="text/css">
+	</style>
+	<script type="text/javascript">
+		function login() {
+			username = document.getElementById('username').value;
+			password = document.getElementById('password').value;
+			front.send("login", username, password)
+		}
+		function displayCalorie() {
+			front.send("getcaloriedata", username)
+		}
+		function tambahkalori() {
+			var statusCalorie
+			optimalCalorie = Number(document.getElementById('optimalCalorie').value);
+			todayCalorie = Number(document.getElementById('todayCalorie').value) + Number(document.getElementById('tambahkalori').value);
+			if (todayCalorie >= optimalCalorie * (9 / 10) && todayCalorie <= optimalCalorie * (11 / 10)) {
+				statusCalorie = "Cukup";
+			}
+			else if (todayCalorie < optimalCalorie * (9 / 10)) {
+				statusCalorie = "Kurang";
+			}
+			else {
+				statusCalorie = "Kelebihan";
+			}
+			front.send("sendcaloriedata", username, optimalCalorie, todayCalorie, statusCalorie)
+		}
+		function sendprofile() {
+			var genderValue = $("input[name='gender']:checked").val();
+			var heightValue = Number(document.getElementById('tinggibadan').value);
+			var weightValue = Number(document.getElementById('beratbadan').value);
+			var ageValue = Number(document.getElementById('umur').value);
+			var activityValue = Number($('.custom-select').val());
+			var optimalCalorie
+			if (genderValue == "Pria") {
+				optimalCalorie = 66.473 + (13.7516 * weightValue) + (5.0033 * heightValue) - (6.7550 * ageValue)
+			}
+			else {
+				optimalCalorie = 655.0955 + (9.5634 * weightValue) + (1.8496 * heightValue) - (4.6756 * ageValue)
+			}
+			optimalCalorie = optimalCalorie * activityValue
+			front.send("sendprofile", username, genderValue, heightValue, weightValue, ageValue, activityValue, optimalCalorie)
+		}
+		function decidenext() {
+			username = document.getElementById('username').value;
+			front.send("whichone", username)
+		}
+		front.on("thisone", function (status) {
+			if (status == "yes") {
+				document.getElementById("calculatorModal").style.display = "block";
+				displayCalorie()
+			}
+			else document.getElementById("profileModal").style.display = "block";
+
+		})
+		front.on("authenticate", function (auth, check) {
+			if (auth == "yes") {
+				decidenext()
+			}
+			else {
+				alert("Username atau password salah")
+			}
+		})
+		front.on("displaycalorie", function () {
+			document.getElementById("profileModal").style.display = "none";
+			document.getElementById("calculatorModal").style.display = "block";
+			displayCalorie()
+		})
+		front.on("gotcalorie", function (optimalCalorie, todayCalorie, statusCalorie) {
+			document.getElementById('optimalCalorie').value = optimalCalorie;
+			document.getElementById('todayCalorie').value = todayCalorie;
+			document.getElementById('statusCalorie').value = statusCalorie;
+		})
+	</script>
+</body>
+
+</html>
