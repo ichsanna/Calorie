@@ -19,7 +19,7 @@
     "license": "ISC",
     "dependencies": {
         "androidjs": "^2.0.2",
-        "axios": "^0.21.1",
+        "axios": "^0.21.2",
         "sha1": "^1.1.1"
     },
     "project-name": "Calorie Calculator",
